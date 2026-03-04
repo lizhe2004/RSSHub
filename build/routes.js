@@ -11603,6 +11603,34 @@ export default {
     "url": "www.artstation.com",
     "lang": "en"
   },
+  "aschmelyun": {
+    "routes": {
+      "/blog": {
+        "name": "Blog",
+        "categories": [
+          "blog"
+        ],
+        "maintainers": [
+          "raxod502"
+        ],
+        "path": "/blog",
+        "example": "/aschmelyun/blog",
+        "radar": [
+          {
+            "source": [
+              "aschmelyun.com"
+            ],
+            "target": "/blog"
+          }
+        ],
+        "location": "blog.ts",
+        "module": () => import('@/routes/aschmelyun/blog.ts')
+      }
+    },
+    "name": "Andrew Schmelyun",
+    "apiRoutes": {},
+    "url": "aschmelyun.com"
+  },
   "asiafruitchina": {
     "routes": {
       "/categories/:category?": {
@@ -46314,6 +46342,31 @@ export default {
         "description": "|pc|tv|indie|web|mobile|all|\n|---|---|---|---|---|---|\n|单机|电视|独立游戏|网游|手游|全部评测|\n",
         "location": "review.ts",
         "module": () => import('@/routes/gamersky/review.ts')
+      },
+      "/user/:userId/:detail?": {
+        "path": "/user/:userId/:detail?",
+        "categories": [
+          "game"
+        ],
+        "example": "/gamersky/user/4009731/detail",
+        "parameters": {
+          "userId": "用户 ID。在用户个人主页，打开“开发者工具”中的“元素”标签页，搜索 data-userid 即可找到",
+          "detail": "是否获取文章详情。只要该参数不为空，就会获取全文内容"
+        },
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "name": "用户动态",
+        "maintainers": [
+          "hualiong"
+        ],
+        "location": "user.ts",
+        "module": () => import('@/routes/gamersky/user.ts')
       }
     },
     "name": "GamerSky",
@@ -47092,6 +47145,83 @@ export default {
         "view": 1,
         "location": "topics.ts",
         "module": () => import('@/routes/gcores/topics.ts')
+      },
+      "/users/:id/radios": {
+        "path": "/users/:id/radios",
+        "name": "用户播客",
+        "url": "www.gcores.com",
+        "maintainers": [
+          "DzmingLi"
+        ],
+        "example": "/gcores/users/31418/radios",
+        "parameters": {
+          "id": {
+            "description": "用户 ID，可在用户主页 URL 中找到"
+          }
+        },
+        "description": "::: tip\n若订阅用户 [这样重这样轻](https://www.gcores.com/users/31418) 发布的播客，网址为 `https://www.gcores.com/users/31418`，请截取 `https://www.gcores.com/users/` 之后的部分 `31418` 作为 `id` 参数填入，此时目标路由为 [`/gcores/users/31418/radios`](https://rsshub.app/gcores/users/31418/radios)。\n:::\n",
+        "categories": [
+          "game"
+        ],
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportRadar": true,
+          "supportBT": false,
+          "supportPodcast": true,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "www.gcores.com/users/:id/content",
+              "www.gcores.com/users/:id"
+            ],
+            "target": "/users/:id/radios"
+          }
+        ],
+        "view": 4,
+        "location": "user-radios.ts",
+        "module": () => import('@/routes/gcores/user-radios.ts')
+      },
+      "/users/:id/talks": {
+        "path": "/users/:id/talks",
+        "name": "用户动态",
+        "url": "www.gcores.com",
+        "maintainers": [
+          "DzmingLi"
+        ],
+        "example": "/gcores/users/31418/talks",
+        "parameters": {
+          "id": {
+            "description": "用户 ID，可在用户主页 URL 中找到"
+          }
+        },
+        "description": "::: tip\n若订阅用户 [这样重这样轻](https://www.gcores.com/users/31418/talks) 的动态，网址为 `https://www.gcores.com/users/31418/talks`，请截取 `https://www.gcores.com/users/` 到 `/talks` 之间的部分 `31418` 作为 `id` 参数填入，此时目标路由为 [`/gcores/users/31418/talks`](https://rsshub.app/gcores/users/31418/talks)。\n:::\n",
+        "categories": [
+          "game"
+        ],
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportRadar": true,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "www.gcores.com/users/:id/talks"
+            ],
+            "target": "/users/:id/talks"
+          }
+        ],
+        "view": 1,
+        "location": "user-talks.ts",
+        "module": () => import('@/routes/gcores/user-talks.ts')
       },
       "/videos": {
         "path": "/videos",
@@ -85293,16 +85423,17 @@ export default {
         "radar": [
           {
             "source": [
-              "jwc.ncu.edu.cn/",
-              "jwc.ncu.edu.cn/jwtz/index.htm"
-            ]
+              "jwc.ncu.edu.cn"
+            ],
+            "target": "/jwc"
           }
         ],
         "name": "教务通知",
         "maintainers": [
-          "ywh555hhh"
+          "ywh555hhh",
+          "jixiuweilan"
         ],
-        "url": "jwc.ncu.edu.cn/",
+        "url": "jwc.ncu.edu.cn/Notices.jsp",
         "location": "jwc.ts",
         "module": () => import('@/routes/ncu/jwc.ts')
       }
